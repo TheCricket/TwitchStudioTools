@@ -13,6 +13,8 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "^6.0.2",
-    "electron-forge": "^5.2.4"
+    "electron-forge": "^5.2.4",
+    "mem": ">=4.0.0",
+    "mime": ">=1.4.1"
   }
 }
