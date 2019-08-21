@@ -5,8 +5,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-#Local Testing
+#Local Env
 test
+.idea
 
 # Runtime data
 pids
