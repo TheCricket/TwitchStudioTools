@@ -19,19 +19,19 @@ exports.createLayers = (audioOutput, displayName) => {
 };
 
 exports.createWebcam = (name, isAspectUnlocked, isShared, pluginName, posBottom, posLeft, posTop, posRight, rot) => {
-  this.createLayer(name, isAspectUnlocked, isShared, IconTypes.WEBCAM, "windowsVideoCapture", "video", pluginName, 0, "source", posBottom, posLeft, posTop, posRight, rot);
+  return this.createLayer(name, isAspectUnlocked, isShared, IconTypes.WEBCAM, "windowsVideoCapture", "video", pluginName, 0, "source", posBottom, posLeft, posTop, posRight, rot);
 };
 
-exports.createGameCapture = (name, isAspectUnlocked, isShared, pluginId, mediaType, pluginName, numInputs, pluginType, posBottom, posLeft, posTop, posRight, rot) => {
-  this.createLayer(name, isAspectUnlocked, isShared, IconTypes.CONTROLLER, pluginId, mediaType, pluginName, numInputs, pluginType, posBottom, posLeft, posTop, posRight, rot);
+exports.createGameCapture = (name, isAspectUnlocked, isShared, pluginName, posBottom, posLeft, posTop, posRight, rot) => {
+  return this.createLayer(name, isAspectUnlocked, isShared, IconTypes.CONTROLLER, "primaryScreenShare", "video", pluginName, 0, "source", posBottom, posLeft, posTop, posRight, rot);
 };
 
-exports.createImage = (name, isAspectUnlocked, isShared, pluginId, mediaType, pluginName, numInputs, pluginType, posBottom, posLeft, posTop, posRight, rot) => {
-  this.createLayer(name, isAspectUnlocked, isShared, IconTypes.PICTURE, pluginId, mediaType, pluginName, numInputs, pluginType, posBottom, posLeft, posTop, posRight, rot);
+exports.createImage = (name, isAspectUnlocked, isShared, pluginName, posBottom, posLeft, posTop, posRight, rot) => {
+  return this.createLayer(name, isAspectUnlocked, isShared, IconTypes.PICTURE, "imageSource", "video", pluginName, 0, "source", posBottom, posLeft, posTop, posRight, rot);
 };
 
-exports.createBackgroundColor = (name, isAspectUnlocked, isShared, pluginId, mediaType, pluginName, numInputs, pluginType, posBottom, posLeft, posTop, posRight, rot) => {
-  this.createLayer(name, isAspectUnlocked, isShared, IconTypes.MULTISCREEN, pluginId, mediaType, pluginName, numInputs, pluginType, posBottom, posLeft, posTop, posRight, rot);
+exports.createBackgroundColor = (name, isAspectUnlocked, isShared, pluginName, posBottom, posLeft, posTop, posRight, rot) => {
+  return this.createLayer(name, isAspectUnlocked, isShared, IconTypes.MULTISCREEN, "colorInput", "video", pluginName, 0, "source", posBottom, posLeft, posTop, posRight, rot);
 };
 
 exports.createLayer = (name, isAspectUnlocked, isShared, iconType, pluginId, mediaType, pluginName, numInputs, pluginType, posBottom, posLeft, posTop, posRight, rot) => {
@@ -74,9 +74,25 @@ exports.createLayer = (name, isAspectUnlocked, isShared, iconType, pluginId, med
   };
 };
 
-exports.createScene = () => {
+exports.createScene = (layers, width, height) => {
   const json = {
     "filters": [],
+    "hidden": false,
+    "id": uuid(),
+    "inputs": [],
+    "pluginId": "compositor",
+    "pluginSettings": {
+      "layers": {
+      },
+      "outputSize": {
+        "height": height,
+        "width": width
+      }
+    },
+    "type": "transform"
+  };
 
-  }
+  layers.forEach(layer => {
+    json.layers[layer.id] = layer;
+  });
 };

@@ -42,10 +42,14 @@ app.on('ready', () => {
       case "scene":
         break;
       case "game_capture":
+        //TODO: Figure out positioning
+        let game = TwitchStudio.createGameCapture(source.name, false, true, source.name, 0, 0, 0, 0, 0);
         break;
       case "ffmpeg_source":
+        //Twitch does not support video sources yet
         break;
       case "image_source":
+
         break;
       case "monitor_capture":
         break;
